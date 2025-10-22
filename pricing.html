@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="container page">
+  <h1>Pricing & Turnaround</h1>
+  <div class="pricing-grid">
+    <div class="card">
+      <h2>Standard</h2>
+      <p class="price">$20 / card</p>
+      <p class="note">~20 business days</p>
+      <a class="btn btn-primary" href="{{ url_for('submit_view') }}">Start</a>
+    </div>
+    <div class="card featured">
+      <h2>Express</h2>
+      <p class="price">$40 / card</p>
+      <p class="note">~5 business days</p>
+      <a class="btn btn-primary" href="{{ url_for('submit_view') }}">Start</a>
+    </div>
+    <div class="card">
+      <h2>Bulk (20+)</h2>
+      <p class="price">$15 / card</p>
+      <p class="note">~25 business days</p>
+      <a class="btn btn-primary" href="{{ url_for('submit_view') }}">Start</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

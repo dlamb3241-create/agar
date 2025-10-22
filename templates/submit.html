@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="container page">
+  <h1>Submit Cards</h1>
+  <p>1) AI pre-check your image 2) Create your order 3) Print your label.</p>
+
+  <form id="ai-form" class="form">
+    <label>Card Image (JPG/PNG)</label>
+    <input type="file" id="cardImage" accept="image/*" required>
+    <button type="submit" class="btn btn-primary">AI Pre-Check</button>
+  </form>
+  <div id="ai-result" class="ai-result hidden"></div>
+
+  <hr>
+
+  <form id="order-form" class="form">
+    <label>Full Name</label>
+    <input type="text" name="name" required>
+    <label>Email</label>
+    <input type="email" name="email" required>
+    <label>Service Level</label>
+    <select name="service" required>
+      <option {% if q.get('service') and 'Standard' in q.get('service') %}selected{% endif %}>Standard - $20</option>
+      <option {% if q.get('service') and 'Express' in q.get('service') %}selected{% endif %}>Express - $40</option>
+      <option {% if q.get('service') and 'Bulk' in q.get('service') %}selected{% endif %}>Bulk - $15 (20+)</option>
+    </select>
+    <label>Card Title</label>
+    <input type="text" name="title" placeholder="Year Brand Player #" value="{{ q.get('title','') }}">
+    <button type="button" class="btn btn-primary" id="create-order">Create Order</button>
+  </form>
+
+  <div id="order-out" class="ai-result hidden"></div>
+</section>
+{% endblock %}

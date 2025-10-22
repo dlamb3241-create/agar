@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="container page">
+  <h1>Certificate #{{ o["cert"] }}</h1>
+  <div class="cert-card">
+    <div class="cert-line"><strong>Card:</strong> {{ o["title"] or "N/A" }}</div>
+    <div class="cert-line"><strong>Grade:</strong> {{ o["grade"] }}</div>
+    <div class="cert-line"><strong>Subgrades:</strong>
+      Centering {{ o["sub_centering"] }} • Corners {{ o["sub_corners"] }} • Edges {{ o["sub_edges"] }} • Surface {{ o["sub_surface"] }}
+    </div>
+    <div class="cert-line"><strong>Service:</strong> {{ o["service"] }}</div>
+    <div class="cert-line"><strong>Date:</strong> {{ o["created_at"] }}</div>
+    <div class="qr-wrap">
+      <img src="{{ qr_url }}" alt="QR to certificate">
+      <div class="cert-actions">
+        <a class="btn btn-primary" href="{{ label_url }}" download>Download Label</a>
+        <a class="btn btn-ghost" href="{{ pdf_url }}" download>Download PDF</a>
+        <a class="btn btn-ghost" href="{{ submit_again }}">Submit Again</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

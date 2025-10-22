@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="hero container">
+  <div class="hero-text">
+    <h1>Professional Trading Card Grading</h1>
+    <p>AI-assisted pre-check, QR-linked certificates, instant labels, registry, and live pop stats.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{ url_for('submit_view') }}">Submit Cards</a>
+      <a class="btn btn-ghost" href="{{ url_for('lookup_view') }}">Cert Lookup</a>
+    </div>
+    <div class="live-stats">
+      <span>Total graded: <strong id="stat-total">{{ total }}</strong></span>
+      <span>Gem 10: <strong id="stat-gem10">{{ gem10 }}</strong></span>
+    </div>
+  </div>
+  <div class="hero-rotator">
+    <div class="card-rotator">
+      <img id="rotating-card" src="{{ url_for('static', filename='img/card1.jpg') }}" alt="Rotating Card">
+      <div class="rotator-controls">
+        <button class="btn btn-primary" id="rotator-cta">Order Now</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="recent container">
+  <h2>Recently Graded</h2>
+  <div class="recent-grid">
+    {% for r in recent %}
+    <div class="recent-item">
+      <div class="recent-title">{{ r["title"] or "Untitled" }}</div>
+      <div class="recent-grade">{{ r["grade"] }}</div>
+      <div class="recent-time">{{ r["created_at"] }}</div>
+    </div>
+    {% else %}
+    <p class="tiny">No certs yet. Submit your first card to start the ticker.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

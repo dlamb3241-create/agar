@@ -1,0 +1,36 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AGA Grading</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-wrap">
+      <div class="logo">AGA<span>GRADING</span><div class="tagline">Authenticity. Precision. Passion.</div></div>
+      <nav class="nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('pricing') }}">Pricing & Turnaround</a>
+        <a href="{{ url_for('submit_view') }}">Submit</a>
+        <a href="{{ url_for('lookup_view') }}">Cert Lookup</a>
+        <a href="{{ url_for('pop_report_view') }}">Pop Report</a>
+        <a href="{{ url_for('registry_view') }}">Registry</a>
+      </nav>
+      <a class="cta" href="{{ url_for('submit_view') }}">Start Order</a>
+    </div>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© {{ 2025 }} Authentic Grading Authority — agagrading.com</p>
+      <p>Fast. Fair. Transparent.</p>
+    </div>
+  </footer>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

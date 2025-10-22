@@ -1,0 +1,13 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="container page">
+  <h1>Cert Lookup</h1>
+  <form id="lookup-form" class="form">
+    <label>Certification Number</label>
+    <input type="text" id="cert" placeholder="Enter cert #" required>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <div id="lookup-result" class="lookup-result hidden"></div>
+</section>
+{% endblock %}

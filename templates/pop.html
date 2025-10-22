@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="container page">
+  <h1>Pop Report</h1>
+  <table class="pop-table" id="pop-table">
+    <thead><tr><th>Key</th><th>Grade</th><th>Count</th></tr></thead>
+    <tbody>
+      {% for r in rows %}
+        <tr data-count="{{ r['count'] }}"><td>{{ r["key"] }}</td><td>{{ r["grade"] }}</td><td>{{ r["count"] }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="tiny">Cells tint from cool to hot based on count.</p>
+</section>
+<script>
+  // simple heatmap coloring
+  const rows = Array.from(document.querySelectorAll("#pop-table tbody tr"));
+  if (rows.length){
+    const counts = rows.map(r => parseInt(r.dataset.count||"0"));
+    const min = Math.min(...counts), max = Math.max(...counts, 1);
+    rows.forEach(r => {
+      const c = parseInt(r.dataset.count||"0");
+      const t = (c - min) / (max - min || 1);
+      const red = Math.round(220 * t);
+      const green = Math.round(38 + (180 * (1-t)));
+      r.style.background = `rgb(${red}, ${green}, 80, 0.2)`;
+    });
+  }
+</script>
+{% endblock %}

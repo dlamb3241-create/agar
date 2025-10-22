@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="container page">
+  <h1>Card Registry</h1>
+  <form id="reg-form" class="form">
+    <label>Certification Number</label>
+    <input type="text" name="cert" placeholder="AGA..." required>
+    <label>Display Name</label>
+    <input type="text" name="display_name" placeholder="Your name or handle" required>
+    <label>Note (optional)</label>
+    <input type="text" name="note" placeholder="PC / FT / Favorite pull">
+    <button type="button" class="btn btn-primary" id="reg-submit">Add to Registry</button>
+  </form>
+  <hr>
+  <h2>Recent Entries</h2>
+  <div class="recent-grid">
+    {% for r in rows %}
+      <div class="recent-item">
+        <div class="recent-title">{{ r["title"] }}</div>
+        <div class="recent-grade">{{ r["grade"] }}</div>
+        <div class="recent-time">{{ r["created_at"] }} — <strong>{{ r["display_name"] }}</strong></div>
+        <div class="tiny">{{ r["note"] }}</div>
+      </div>
+    {% else %}
+      <p class="tiny">No registered cards yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
