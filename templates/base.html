@@ -1,36 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Authentic Grading Authority</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body>
-  <header class="header">
-    <div class="container">
-      <h1 class="logo">
-        <a href="{{ url_for('home') }}">Authentic Grading Authority</a>
-      </h1>
-      <nav class="nav">
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('pricing') }}">Pricing & Turnaround</a>
-        <a href="{{ url_for('submit_view') }}">Submit</a>
-        <a href="{{ url_for('lookup_view') }}">Cert Lookup</a>
-        <a href="{{ url_for('pop_report_view') }}">Pop Report</a>
-        <a href="{{ url_for('registry_view') }}">Registry</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="main-content">
-    {% block content %}{% endblock %}
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; {{ now().year if now else "2025" }} Authentic Grading Authority. All Rights Reserved.</p>
-    </div>
-  </footer>
-</body>
-</html>
+First submission? Grade 5 cards for $50 Start Submission
+AGA Authentic Grading Authority
+Order Status Certification Lookup Pricing How To Submit Monthly Specials
+Login Register
+{% block content %}{% endblock %}
+© 2025 AGA — agagrading.com
+Pricing Pop Report Registry
