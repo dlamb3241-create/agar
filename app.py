@@ -1,18 +1,18 @@
 import os, io, sqlite3, hashlib
 from datetime import datetime
-from flask import Flask, render_template, request, jsonify, url_for, redirect
+from flask import Flask, render_template, request, jsonify, url_for
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import qrcode
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
-# Local DB instead of /data so Render free plan can write to it
+# Use local DB for Render free plan (no permission issues)
 DB_PATH = os.environ.get("DB_PATH", "aga.db")
 CERT_SALT = os.environ.get("CERT_SALT", "change-me")
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
-# ------------------ Database ------------------
+# ------------------ DATABASE SETUP ------------------
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -57,7 +57,7 @@ def init_db():
 
 init_db()
 
-# ------------------ Utilities ------------------
+# ------------------ HELPERS ------------------
 def make_cert():
     stamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     rand = os.urandom(3).hex().upper()
@@ -122,7 +122,7 @@ def cert_pdf(cert, title, grade, subs, created_at, out_path):
         c.drawImage(qr_path,width-180,60,120,120,mask='auto')
     c.save()
 
-# ------------------ Routes ------------------
+# ------------------ MAIN ROUTES ------------------
 @app.route("/")
 def home():
     conn=get_db()
@@ -136,6 +136,27 @@ def home():
     conn.close()
     return render_template("index.html",total=total,gem10=gem10,recent=recent)
 
+@app.route("/pricing")
+def pricing():
+    return render_template("pricing.html")
+
+@app.route("/submit")
+def submit_view():
+    return render_template("submit.html")
+
+@app.route("/lookup")
+def lookup_view():
+    return render_template("lookup.html")
+
+@app.route("/pop-report")
+def pop_report_view():
+    return render_template("pop.html")
+
+@app.route("/registry")
+def registry_view():
+    return render_template("registry.html")
+
+# ------------------ API ROUTES ------------------
 @app.route("/api/grade", methods=["POST"])
 def api_grade():
     if "image" not in request.files:
@@ -188,7 +209,7 @@ def cert_page(cert):
     conn=get_db(); cur=conn.cursor()
     cur.execute("SELECT * FROM orders WHERE cert=?",(cert,))
     row=cur.fetchone(); conn.close()
-    if not row: return "Certificate not found",404
+    if not row: return render_template("cert_not_found.html"),404
     return render_template("cert.html",o=row,
         qr_url=url_for("static",filename=f"qrcodes/{cert}.png"),
         label_url=url_for("static",filename=f"labels/{cert}.png"),
@@ -198,5 +219,6 @@ def cert_page(cert):
 def health():
     return jsonify({"status":"ok"})
 
+# ------------------ MAIN ------------------
 if __name__=="__main__":
     app.run(host="0.0.0.0", port=10000)
