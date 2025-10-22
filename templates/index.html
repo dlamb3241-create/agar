@@ -1,41 +1,87 @@
-
 {% extends "base.html" %}
 {% block content %}
+
 <section class="hero container">
-  <div class="hero-text">
-    <h1>Professional Trading Card Grading</h1>
-    <p>AI-assisted pre-check, QR-linked certificates, instant labels, registry, and live pop stats.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="{{ url_for('submit_view') }}">Submit Cards</a>
-      <a class="btn btn-ghost" href="{{ url_for('lookup_view') }}">Cert Lookup</a>
+  <div class="hero-left">
+    <h1>Welcome to AGA Grading.</h1>
+    <p>Protecting trading cards for the everyday collector. AI-assisted pre-check, QR-linked certificates, live pop data, and instant labels.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary lg" href="{{ url_for('submit_view') }}">Start a Submission</a>
+      <a class="btn btn-ghost lg" href="{{ url_for('pricing') }}">Pricing & Live Turnaround</a>
     </div>
-    <div class="live-stats">
-      <span>Total graded: <strong id="stat-total">{{ total }}</strong></span>
-      <span>Gem 10: <strong id="stat-gem10">{{ gem10 }}</strong></span>
+    <div class="hero-sub">
+      <span class="dot"></span> Live turnaround updates
     </div>
   </div>
-  <div class="hero-rotator">
+  <div class="hero-right">
     <div class="card-rotator">
-      <img id="rotating-card" src="{{ url_for('static', filename='img/card1.jpg') }}" alt="Rotating Card">
-      <div class="rotator-controls">
-        <button class="btn btn-primary" id="rotator-cta">Order Now</button>
-      </div>
+      <img id="rotating-card" src="{{ url_for('static', filename='img/card1.jpg') }}" alt="Card"/>
     </div>
   </div>
+</section>
+
+<section class="brands">
+  <div class="container brands-row">
+    <span class="badge">slabs for collectors™</span>
+    <div class="logos">
+      <div>POKÉMON</div><div>PANINI</div><div>TOPPS</div><div>MAGIC</div><div>YU-GI-OH!</div><div>DB HEROES</div>
+    </div>
+  </div>
+</section>
+
+<section class="feature container">
+  <div class="grid2">
+    <div>
+      <img class="mock" src="{{ url_for('static', filename='img/card2.jpg') }}" alt="Box"/>
+    </div>
+    <div class="callout">
+      <h2>Upgrade your collecting experience</h2>
+      <p>Every order includes a digital certificate PDF and QR label. Our process is fast, transparent, and designed to make your reveal feel premium.</p>
+      <ul>
+        <li>Collector’s first look report (AI pre-check)</li>
+        <li>Secure & durable labeling</li>
+        <li>Built for storage and sharing</li>
+      </ul>
+      <a class="btn btn-primary" href="{{ url_for('submit_view') }}">Start a Submission</a>
+    </div>
+  </div>
+</section>
+
+<section class="live container">
+  <h2>Pricing & Live Turnaround</h2>
+  <p>No membership or credit card required to create your submission.</p>
+  <div class="price-cards">
+    <div class="pcard">
+      <div class="status"><span class="dot"></span> LIVE</div>
+      <h3>Standard Submission</h3>
+      <div class="ptime">30 business day turnaround*</div>
+      <div class="p">$25 <span>/ card</span></div>
+      <a class="btn btn-primary" href="{{ url_for('submit_view') }}">Start</a>
+    </div>
+    <div class="pcard">
+      <div class="status"><span class="dot"></span> LIVE</div>
+      <h3>Bulk Submission</h3>
+      <div class="ptime">34 business day turnaround*</div>
+      <div class="p">$15 <span>/ card</span></div>
+      <a class="btn btn-primary" href="{{ url_for('submit_view') }}">Start</a>
+    </div>
+  </div>
+  <p class="tiny">*Estimates vary by volume and demand.</p>
 </section>
 
 <section class="recent container">
   <h2>Recently Graded</h2>
   <div class="recent-grid">
     {% for r in recent %}
-    <div class="recent-item">
-      <div class="recent-title">{{ r["title"] or "Untitled" }}</div>
-      <div class="recent-grade">{{ r["grade"] }}</div>
-      <div class="recent-time">{{ r["created_at"] }}</div>
-    </div>
+      <div class="recent-item">
+        <div class="title">{{ r["title"] or "Untitled" }}</div>
+        <div class="grade">{{ r["grade"] }}</div>
+        <div class="time">{{ r["created_at"] }}</div>
+      </div>
     {% else %}
-    <p class="tiny">No certs yet. Submit your first card to start the ticker.</p>
+      <p class="tiny">No certs yet. Submit your first card.</p>
     {% endfor %}
   </div>
 </section>
+
 {% endblock %}
